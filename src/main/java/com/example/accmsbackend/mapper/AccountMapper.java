@@ -2,6 +2,7 @@ package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Account;
 import com.example.accmsbackend.domain.Custom;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,11 @@ public interface AccountMapper {
             VALUES (#{offices}, #{bankingInformation}, #{accountNumber}, #{companyNumber})
             """)
     void insert(Account account);
+
+
+    @Delete("""
+            DELETE FROM account
+            WHERE companyNumber = #{companyNumber}
+            """)
+    int delete(Account companyNumber);
 }

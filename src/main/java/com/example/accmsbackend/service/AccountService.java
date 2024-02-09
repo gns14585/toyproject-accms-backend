@@ -22,4 +22,15 @@ public class AccountService {
         customMapper.insert(custom);
         accountMapper.insert(account);
     }
+
+    public boolean delete(CustomAccountRequest request) {
+        try {
+            accountMapper.delete(request.getAccount());
+            customMapper.delete(request.getCustom());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

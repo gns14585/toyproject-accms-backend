@@ -1,6 +1,7 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Custom;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -52,4 +53,11 @@ public interface CustomMapper {
                 #{changeDateTime})
             """)
     void insert(Custom custom);
+
+
+    @Delete("""
+            DELETE FROM custom
+            WHERE companyNumber = #{companyNumber}
+            """)
+    int delete(Custom companyNumber);
 }
