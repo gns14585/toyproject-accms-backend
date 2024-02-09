@@ -8,6 +8,8 @@ import com.example.accmsbackend.mapper.CustomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -32,5 +34,10 @@ public class AccountService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Custom> list(Custom custom) {
+        return customMapper.list(custom);
+
     }
 }

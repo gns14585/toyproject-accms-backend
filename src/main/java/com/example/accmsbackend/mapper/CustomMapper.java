@@ -4,6 +4,9 @@ import com.example.accmsbackend.domain.Custom;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface CustomMapper {
@@ -60,4 +63,12 @@ public interface CustomMapper {
             WHERE companyNumber = #{companyNumber}
             """)
     int delete(Custom companyNumber);
+
+    @Select("""
+            SELECT 
+                c.*,
+                a.*
+            FROM custom c JOIN accms.account a on c.companyNumber = a.companyNumber
+            """)
+    List<Custom> list(Custom request);
 }
