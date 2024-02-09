@@ -1,5 +1,6 @@
 package com.example.accmsbackend.controller;
 
+import com.example.accmsbackend.domain.Account;
 import com.example.accmsbackend.domain.Custom;
 import com.example.accmsbackend.domain.CustomAccountRequest;
 import com.example.accmsbackend.dto.CustomDto;
@@ -39,7 +40,7 @@ public class AccountController {
     }
 
     @GetMapping("list")
-    public List<Custom> list(Custom custom) {
-        return accountService.list(custom);
+    public List<CustomAccountRequest> list(Custom custom, Account account) {
+        return accountService.list(custom, account);
     }
 }

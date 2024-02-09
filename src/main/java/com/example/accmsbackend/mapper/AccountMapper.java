@@ -1,10 +1,12 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Account;
-import com.example.accmsbackend.domain.Custom;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface AccountMapper {
@@ -21,4 +23,10 @@ public interface AccountMapper {
             WHERE companyNumber = #{companyNumber}
             """)
     int delete(Account companyNumber);
+
+    @Select("""
+            SELECT *
+            FROM account
+            """)
+    List<Account> list(Account account);
 }

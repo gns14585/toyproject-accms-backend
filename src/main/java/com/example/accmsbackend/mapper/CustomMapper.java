@@ -65,10 +65,8 @@ public interface CustomMapper {
     int delete(Custom companyNumber);
 
     @Select("""
-            SELECT 
-                c.*,
-                a.*
-            FROM custom c JOIN accms.account a on c.companyNumber = a.companyNumber
+            SELECT *
+            FROM custom
             """)
     List<Custom> list(Custom request);
 }
