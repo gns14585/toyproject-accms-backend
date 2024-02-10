@@ -15,13 +15,13 @@ public class AccountService {
     private final AccountMapper accountMapper;
     private final CustomMapper customMapper;
 
+    // ------------------------------ 거래처 신규 등록 ------------------------------
     public void insert(CustomAccountDto request) {
-
-
         customMapper.insert(request);
         accountMapper.insert(request);
     }
 
+    // ------------------------------ 거래처 삭제 ------------------------------
     public boolean delete(CustomAccountDto request) {
         try {
             accountMapper.delete(request);
@@ -33,10 +33,12 @@ public class AccountService {
         }
     }
 
+    // ------------------------------ 거래처목록 불러오기 ------------------------------
     public List<CustomAccountDto> list() {
         return customMapper.listCustomAccounts();
     }
 
+    // ------------------------------ 거래처 수정 ------------------------------
     public boolean update(CustomAccountDto request) {
         try {
             accountMapper.update(request);

@@ -21,7 +21,6 @@ public class AccountController {
     // ------------------------------ 거래처 신규 등록 ------------------------------
     @PostMapping("add")
     public void add(@RequestBody CustomAccountDto request) {
-        System.out.println("request = " + request);
         accountService.insert(request);
     }
 

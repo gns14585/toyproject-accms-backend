@@ -62,14 +62,6 @@ public interface CustomMapper {
             """)
     int delete(CustomAccountDto companyNumber);
 
-    @Select("""
-            SELECT *
-            FROM custom
-            ORDER BY regTime DESC
-            """)
-    List<Custom> list(Custom request);
-
-
     @Update("""
             UPDATE custom
             SET
