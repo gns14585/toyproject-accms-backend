@@ -1,9 +1,6 @@
 package com.example.accmsbackend.controller;
 
-import com.example.accmsbackend.domain.Account;
-import com.example.accmsbackend.domain.Custom;
-import com.example.accmsbackend.domain.CustomAccountRequest;
-import com.example.accmsbackend.dto.CustomDto;
+import com.example.accmsbackend.dto.CustomAccountDto;
 import com.example.accmsbackend.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,13 +20,14 @@ public class AccountController {
 
     // ------------------------------ 거래처 신규 등록 ------------------------------
     @PostMapping("add")
-    public void add(@RequestBody CustomAccountRequest request) {
+    public void add(@RequestBody CustomAccountDto request) {
+        System.out.println("request = " + request);
         accountService.insert(request);
     }
 
     // ------------------------------ 거래처 삭제 ------------------------------
     @DeleteMapping("delete")
-    public ResponseEntity delete(@RequestBody CustomAccountRequest request) {
+    public ResponseEntity delete(@RequestBody CustomAccountDto request) {
         if (request == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -41,13 +39,13 @@ public class AccountController {
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
     @GetMapping("list")
-    public List<CustomAccountRequest> list(Custom custom, Account account) {
-        return accountService.list(custom, account);
+    public List<CustomAccountDto> list() {
+        return accountService.list();
     }
 
     // ------------------------------ 거래처 수정 ------------------------------
     @PutMapping("edit")
-    public ResponseEntity edit(@RequestBody CustomAccountRequest request) {
+    public ResponseEntity edit(@RequestBody CustomAccountDto request) {
         if (request == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

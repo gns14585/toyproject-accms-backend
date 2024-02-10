@@ -1,6 +1,7 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Custom;
+import com.example.accmsbackend.dto.CustomAccountDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -52,14 +53,14 @@ public interface CustomMapper {
                 #{changeInformation},
                 #{changeDateTime})
             """)
-    void insert(Custom custom);
+    void insert(CustomAccountDto custom);
 
 
     @Delete("""
             DELETE FROM custom
             WHERE companyNumber = #{companyNumber}
             """)
-    int delete(Custom companyNumber);
+    int delete(CustomAccountDto companyNumber);
 
     @Select("""
             SELECT *
@@ -94,5 +95,12 @@ public interface CustomMapper {
                 changeDateTime = #{changeDateTime}
             WHERE companyNumber = #{companyNumber}
             """)
-    int update(Custom custom);
+    int update(CustomAccountDto custom);
+    @Select("""
+            SELECT c.*, a.* 
+            FROM custom c JOIN account a ON c.companyNumber = a.companyNumber
+            ORDER BY a.regTime DESC
+            """)
+    List<CustomAccountDto> listCustomAccounts();
+
 }

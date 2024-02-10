@@ -1,6 +1,7 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Account;
+import com.example.accmsbackend.dto.CustomAccountDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -12,21 +13,14 @@ public interface AccountMapper {
             INSERT INTO account (offices, bankingInformation, accountNumber, companyNumber)
             VALUES (#{offices}, #{bankingInformation}, #{accountNumber}, #{companyNumber})
             """)
-    void insert(Account account);
+    void insert(CustomAccountDto account);
 
 
     @Delete("""
             DELETE FROM account
             WHERE companyNumber = #{companyNumber}
             """)
-    int delete(Account companyNumber);
-
-    @Select("""
-            SELECT *
-            FROM account
-            ORDER BY regTime DESC
-            """)
-    List<Account> list(Account account);
+    int delete(CustomAccountDto companyNumber);
 
     @Update("""
             UPDATE account a
@@ -37,5 +31,5 @@ public interface AccountMapper {
                 bankingInformation = #{bankingInformation}
             WHERE c.companyNumber = #{companyNumber}
             """)
-    int update(Account account);
+    int update(CustomAccountDto account);
 }
