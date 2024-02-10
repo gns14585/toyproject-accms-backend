@@ -39,8 +39,21 @@ public class AccountController {
         return ResponseEntity.internalServerError().build();
     }
 
+    // ------------------------------ 거래처목록 불러오기 ------------------------------
     @GetMapping("list")
     public List<CustomAccountRequest> list(Custom custom, Account account) {
         return accountService.list(custom, account);
+    }
+
+    // ------------------------------ 거래처 수정 ------------------------------
+    @PutMapping("edit")
+    public ResponseEntity edit(@RequestBody CustomAccountRequest request) {
+        if (request == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        if (accountService.update(request)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.internalServerError().build();
     }
 }

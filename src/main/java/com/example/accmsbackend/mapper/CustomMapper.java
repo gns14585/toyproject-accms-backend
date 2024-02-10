@@ -1,10 +1,7 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Custom;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -67,6 +64,35 @@ public interface CustomMapper {
     @Select("""
             SELECT *
             FROM custom
+            ORDER BY regTime DESC
             """)
     List<Custom> list(Custom request);
+
+
+    @Update("""
+            UPDATE custom
+            SET
+                abbreviated = #{abbreviated},
+                companyName = #{companyName},
+                representative = #{representative},
+                responsiblefor = #{responsiblefor},
+                businessType = #{businessType},
+                items = #{items},
+                postalCode = #{postalCode},
+                primaryAddress = #{primaryAddress},
+                detailedAddress = #{detailedAddress},
+                phoneNumber = #{phoneNumber},
+                faxNumber = #{faxNumber},
+                homepageurl = #{homepageurl},
+                companyType = #{companyType},
+                countryType = #{countryType},
+                contractPeriod1 = #{contractPeriod1},
+                contractPeriod2 = #{contractPeriod2},
+                registrationInformation = #{registrationInformation},
+                registrationDateTime = #{registrationDateTime},
+                changeInformation = #{changeInformation},
+                changeDateTime = #{changeDateTime}
+            WHERE companyNumber = #{companyNumber}
+            """)
+    int update(Custom custom);
 }

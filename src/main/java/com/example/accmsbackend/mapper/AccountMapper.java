@@ -1,10 +1,7 @@
 package com.example.accmsbackend.mapper;
 
 import com.example.accmsbackend.domain.Account;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,6 +24,18 @@ public interface AccountMapper {
     @Select("""
             SELECT *
             FROM account
+            ORDER BY regTime DESC
             """)
     List<Account> list(Account account);
+
+    @Update("""
+            UPDATE account a
+            JOIN custom c ON a.companyNumber = c.companyNumber
+            SET
+                offices = #{offices},
+                accountNumber = #{accountNumber},
+                bankingInformation = #{bankingInformation}
+            WHERE c.companyNumber = #{companyNumber}
+            """)
+    int update(Account account);
 }

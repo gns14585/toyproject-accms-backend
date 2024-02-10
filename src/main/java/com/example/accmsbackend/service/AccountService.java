@@ -64,4 +64,15 @@ public class AccountService {
 
         return resultList;
     }
+
+    public boolean update(CustomAccountRequest request) {
+        try {
+            accountMapper.update(request.getAccount());
+            customMapper.update(request.getCustom());
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
