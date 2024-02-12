@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class AccountController {
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
     @GetMapping("list")
-    public List<CustomAccountDto> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
+    public Map<String, Object> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
         return accountService.list(page);
     }
 

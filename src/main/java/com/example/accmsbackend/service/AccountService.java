@@ -6,7 +6,9 @@ import com.example.accmsbackend.mapper.CustomMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -34,11 +36,35 @@ public class AccountService {
     }
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
-    public List<CustomAccountDto> list(Integer page) {
+    public Map<String, Object> list(Integer page) {
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> pageInfo = new HashMap<>();
+
+        int countAll = customMapper.countAll();
+
+        int lastPageNumber = (countAll - 1) / 10 + 1;
+        int startPageNumber = (page - 1) / 10 * 10 + 1;
+        int endPageNumber = startPageNumber + 9;
+        endPageNumber = Math.min(endPageNumber, lastPageNumber);
+        int prevPageNumber = startPageNumber - 10;
+        int nextPageNumber = endPageNumber + 1;
+
+        pageInfo.put("currentPageNumber", page);
+        pageInfo.put("startPageNumber", startPageNumber);
+        pageInfo.put("endPageNumber", endPageNumber);
+        if (prevPageNumber > 0) {
+            pageInfo.put("prevPageNumber", prevPageNumber);
+        }
+        if (nextPageNumber <= lastPageNumber) {
+            pageInfo.put("nextPageNumber", nextPageNumber);
+        }
 
         int from = (page - 1) * 10;
 
-        return customMapper.listCustomAccounts(from);
+        map.put("accountList", customMapper.listCustomAccounts(from));
+        map.put("pageInfo", pageInfo);
+
+        return map;
     }
 
     // ------------------------------ 거래처 수정 ------------------------------

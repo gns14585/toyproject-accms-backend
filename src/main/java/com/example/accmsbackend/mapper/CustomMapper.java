@@ -96,4 +96,9 @@ public interface CustomMapper {
             """)
     List<CustomAccountDto> listCustomAccounts(Integer from);
 
+    @Select("""
+            SELECT COUNT(*)
+            FROM custom
+            """)
+    int countAll();
 }
