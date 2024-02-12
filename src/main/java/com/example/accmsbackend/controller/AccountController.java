@@ -39,8 +39,10 @@ public class AccountController {
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
     @GetMapping("list")
-    public Map<String, Object> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
-        return accountService.list(page);
+    public Map<String, Object> list(@RequestParam(value = "p", defaultValue = "1") Integer page,
+                                    @RequestParam(value = "b", defaultValue = "") String businessNumber,
+                                    @RequestParam(value = "c", defaultValue = "") String companyName) {
+        return accountService.list(page, businessNumber, companyName);
     }
 
     // ------------------------------ 거래처 수정 ------------------------------

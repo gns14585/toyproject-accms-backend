@@ -1,6 +1,5 @@
 package com.example.accmsbackend.mapper;
 
-import com.example.accmsbackend.domain.Custom;
 import com.example.accmsbackend.dto.CustomAccountDto;
 import org.apache.ibatis.annotations.*;
 
@@ -88,17 +87,23 @@ public interface CustomMapper {
             WHERE companyNumber = #{companyNumber}
             """)
     int update(CustomAccountDto custom);
-    @Select("""
-            SELECT c.*, a.* 
+
+@Select("""
+            SELECT c.*, a.*
             FROM custom c JOIN account a ON c.companyNumber = a.companyNumber
+            WHERE ('' = #{businessNumber} OR c.companyNumber LIKE CONCAT('%', #{businessNumber}, '%'))
+            AND ('' = #{companyName} OR c.companyName LIKE CONCAT('%', #{companyName}, '%'))
             ORDER BY a.regTime DESC
             LIMIT #{from}, 10
-            """)
-    List<CustomAccountDto> listCustomAccounts(Integer from);
+        """)
+List<CustomAccountDto> listCustomAccounts(Integer from, String businessNumber, String companyName);
+
 
     @Select("""
             SELECT COUNT(*)
             FROM custom
+            WHERE ('' = #{businessNumber} OR companyNumber LIKE CONCAT('%', #{businessNumber}, '%'))
+            AND ('' = #{companyName} OR companyName LIKE CONCAT('%', #{companyName}, '%'))
             """)
-    int countAll();
+    int countAll(String businessNumber, String companyName);
 }

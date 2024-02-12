@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -36,11 +35,11 @@ public class AccountService {
     }
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
-    public Map<String, Object> list(Integer page) {
+    public Map<String, Object> list(Integer page, String businessNumber, String companyName) {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> pageInfo = new HashMap<>();
 
-        int countAll = customMapper.countAll();
+        int countAll = customMapper.countAll(businessNumber, companyName);
 
         int lastPageNumber = (countAll - 1) / 10 + 1;
         int startPageNumber = (page - 1) / 10 * 10 + 1;
@@ -61,7 +60,7 @@ public class AccountService {
 
         int from = (page - 1) * 10;
 
-        map.put("accountList", customMapper.listCustomAccounts(from));
+        map.put("accountList", customMapper.listCustomAccounts(from, businessNumber, companyName));
         map.put("pageInfo", pageInfo);
 
         return map;
