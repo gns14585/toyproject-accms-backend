@@ -38,8 +38,8 @@ public class AccountController {
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
     @GetMapping("list")
-    public List<CustomAccountDto> list() {
-        return accountService.list();
+    public List<CustomAccountDto> list(@RequestParam(value = "p", defaultValue = "1") Integer page) {
+        return accountService.list(page);
     }
 
     // ------------------------------ 거래처 수정 ------------------------------

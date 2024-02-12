@@ -92,7 +92,8 @@ public interface CustomMapper {
             SELECT c.*, a.* 
             FROM custom c JOIN account a ON c.companyNumber = a.companyNumber
             ORDER BY a.regTime DESC
+            LIMIT #{from}, 10
             """)
-    List<CustomAccountDto> listCustomAccounts();
+    List<CustomAccountDto> listCustomAccounts(Integer from);
 
 }

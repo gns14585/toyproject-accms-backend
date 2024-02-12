@@ -34,8 +34,11 @@ public class AccountService {
     }
 
     // ------------------------------ 거래처목록 불러오기 ------------------------------
-    public List<CustomAccountDto> list() {
-        return customMapper.listCustomAccounts();
+    public List<CustomAccountDto> list(Integer page) {
+
+        int from = (page - 1) * 10;
+
+        return customMapper.listCustomAccounts(from);
     }
 
     // ------------------------------ 거래처 수정 ------------------------------
